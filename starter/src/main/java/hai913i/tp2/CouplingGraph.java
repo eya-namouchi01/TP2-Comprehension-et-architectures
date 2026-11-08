@@ -81,13 +81,16 @@ public class CouplingGraph {
         sb.append("graph couplage {\n");
         sb.append("  layout=neato;\n");
         sb.append("  overlap=false;\n");
+        sb.append("  sep=\"+40\";\n");
+        sb.append("  splines=true;\n");
         sb.append("  node [shape=box, fontname=\"Helvetica\", fontsize=10];\n");
+        sb.append("  edge [fontname=\"Helvetica\", fontsize=8, fontcolor=\"gray35\"];\n");
         for (String c : nodes) {
             sb.append("  \"" + c + "\" [label=\"" + Report.shortName(c) + "\"];\n");
         }
         for (Edge e : edges) {
             sb.append("  \"" + e.classA() + "\" -- \"" + e.classB() + "\""
-                    + " [label=\"" + Report.num(e.weight()) + "\"];\n");
+                    + " [label=\"" + Report.num(e.weight()) + "\", penwidth=" + (e.weight() * 30) + "];\n");
         }
         sb.append("}\n");
         return sb.toString();

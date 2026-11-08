@@ -71,6 +71,7 @@ public final class Main {
         Path dir = Path.of(args[0]);
         double cp = CP_DEFAUT;
         String prefix = null;
+        boolean scan = false;
         for (int i = 1; i < args.length; i++) {
             if ("--cp".equals(args[i]) && i + 1 < args.length) {
                 try {
@@ -81,6 +82,8 @@ public final class Main {
                 }
             } else if ("--prefix".equals(args[i]) && i + 1 < args.length) {
                 prefix = args[++i];
+            } else if ("--scan".equals(args[i])) {
+                scan = true;
             } else {
                 usage("argument inconnu : " + args[i]);
                 return;
@@ -181,6 +184,12 @@ public final class Main {
         OUT.println("B3 Modules");
         OUT.print(Report.modules(cut));
 
+        // B4 help: effect of CP (only with --scan)
+        if (scan) {
+            OUT.println();
+            OUT.println("B4 Effet de CP");
+            OUT.print(CpScan.report(clustering, coupling, coupling.classes().size()));
+        }
     }
 
     /**
